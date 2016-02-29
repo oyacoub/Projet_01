@@ -1,0 +1,16 @@
+.Tableau1{
+width:700px;
+height:500px;
+background-color:silver;
+float:right;
+padding:20px;
+border:solid 1px black;
+}
+.Tableau2 {
+border:solid 1px ;
+background-color:silver;
+width:300px;
+padding:20px;
+height:500px;
+
+}

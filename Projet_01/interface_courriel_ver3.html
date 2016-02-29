@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+</script>
+  <link rel="stylesheet" href="interface_courriel_css.css"/>
+  <h1><strong> Courriel</strong></h1>
+</div>
+  <meta charset="UTF-8">
+
+  <TITLE>Interface navigation de messages</TITLE>
+
+  <script type="text/javascript">
+      var oListBox_outbox, oListBox_inbox;
+      window.onload = function() //format affichage du listbox
+      {
+          var Outbox_list_setup = {
+              Base: document.getElementById('Outbox'),
+              Rows: 50, //nombre de lignes
+              Width: 1000, //longueur
+              NormalItemColor: null,
+              NormalItemBackColor: null,
+              AlternateItemColor: null,
+              AlternateItemBackColor: null,
+              SelectedItemColor: null,
+              SelectedIItemBackColor: null,
+              HoverItemColor: null,
+              HoverItemBackColor: null,
+              HoverBorderdColor: null,
+              ClickEventHandler: OnClick
+          };
+
+          var Inbox_list_setup = {
+              Base: document.getElementById('Inbox'),
+              Rows: 50, //nombre de lignes
+              Width: 1000, //longueur
+              NormalItemColor: null,
+              NormalItemBackColor: null,
+              AlternateItemColor: null,
+              AlternateItemBackColor: null,
+              SelectedItemColor: null,
+              SelectedIItemBackColor: null,
+              HoverItemColor: null,
+              HoverItemBackColor: null,
+              HoverBorderdColor: null,
+              ClickEventHandler: OnClick
+          };
+
+          var Contacts_list_setup = {
+              Base: document.getElementById('Contact_section'),
+              Rows: 50, //nombre de lignes
+              Width: 500, //longueur
+              NormalItemColor: null,
+              NormalItemBackColor: null,
+              AlternateItemColor: null,
+              AlternateItemBackColor: null,
+              SelectedItemColor: null,
+              SelectedIItemBackColor: null,
+              HoverItemColor: null,
+              HoverItemBackColor: null,
+              HoverBorderdColor: null,
+              ClickEventHandler: OnClick
+          };
+
+          oListBox_outbox = new ListBox(Outbox_list_setup); //creation objet listbox outbox
+          oListBox_inbox = new ListBox(Inbox_list_setup); //creation objet listbox inbox
+          oListBox_contacts = new ListBox(Contacts_list_setup); //creation objet listbox inbox
+
+          etat.outbox.forEach( function(msg){
+                    oListBox_outbox.AddItem( msg.date + "- Message: " + msg.msg + " - Envoye a: " + etat.yp[msg.to].name  ,'http://www.lienexamplesinecessaire.com/');//ajout du message dans inbox
+
+          });
+
+          etat.inbox.forEach( function(msg){
+                    oListBox_inbox.AddItem( msg.date + "- Message: " + msg.msg + " - Envoye de: " + etat.yp[msg.from].name  ,'http://www.lienexamplesinecessaire.com/');//ajout du message dans inbox
+
+          });
+
+          etat.outbox.forEach( function(msg){
+                    oListBox_contacts.AddItem( msg.date + "- Message: " + msg.msg + " - Envoye a: " + etat.yp[msg.to].name  ,'http://www.lienexamplesinecessaire.com/');//ajout du message dans inbox
+
+          });
+      }
+
+      var OnClick = function(Sender, EventArgs) //envoi des actions dans listbox
+      {
+          var Message = new Array();
+
+          Message.push('IsSelected: ' + Sender.checked.toString());
+          Message.push('Text: ' + EventArgs.Text);
+          Message.push('Value: ' + EventArgs.Value);
+          Message.push('Index: ' + EventArgs.ItemIndex);
+          document.getElementById('DivMessage').innerHTML = Message.join('<br />');
+      }
+
+  </script>
+</head>
+
+<body>
+<script src="ListBox.js"></script>
+  <div class ="Tableau1" id = "Tableau1_section">
+
+Inbox Section<br>
+    <div id="Inbox"></div>
+
+Outbox Section<br>
+     <div id="Outbox"></div>
+
+Contact Section<br>
+     <div id="contact_section"></div>
+  </div>
+
+    <div class="Tableau2">
+    <button id = "inbox"><strong>Inbox</strong> </button><br> <br>
+    <button id = "outbox"> <strong>Outbox</strong></button> <br> <br>
+    <button id = "contact"> <strong>Contacts</strong></button> <br> <br>
+
+<div id="Cn">
+  <form Name="newMessage" action="" method=post<p>
+  Adresse:<br> <input type="text" name="toAdresse" id= "@"><p>
+  Message:<br> <TEXTAREA Name=message rows =5 cols =30 id ="msg"></TEXTAREA>
+         <br>
+         <input type="button" value="Envoyer" id ="b4" onclick="etat.outbox.push">
+   <input type="RESET" value="Effacer  "></form>
+    </div>
+  </div>
+</div>
+
+
+      </script>
+
+  <script charset="utf-8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
+  <script charset="utf-8" src="http://code.jquery.com/jquery-X.Y.Z.min.js"></script>
+  <script>
+    $("#outbox").click( function (){
+      $("#contact_section").hide();
+        $("#Inbox").hide();
+        $("#Outbox").show();
+    });
+
+    $("#inbox").click( function (){
+      $("#contact_section").hide();
+        $("#Outbox").hide();
+        $("#Inbox").show();
+    });
+
+    $("#contact").click(function(){
+      $("#contact_section").show();
+      $("#Outbox").hide();
+      $("#Inbox").hide();
+    });
+
+
+    $("#Envoyer").click(function(){
+      etat.outbox.append({"to":$("#@").text(),"msg":$("#msg").text(),"date":new Date()});
+alert(JSON.stringify(etat));
+
+    });
+    $("#contact").click(function(){
+            $("#contact_section").show();
+              $("#showinbox").hide();
+                $("#showoutbox").hide();
+    });
+
+  $(document).ready(function(){
+      $("#contact_section").hide();
+      $("#Inbox").hide();
+      $("#Outbox").hide();
+      $("#contact_section").hide();
+  });
+
+</script>
+  <script type="text/javascript" src ="interface2.js"></script>
+
+</body>
+</html>
